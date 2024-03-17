@@ -1,17 +1,12 @@
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  int a = 100;
-  int b = 200;
-  Serial.println(a);
-  Serial.println(b);
-  a = a + b;
-  Serial.println(a);
-  a = a + b;
-  Serial.println(a);
+  pinMode(13, OUTPUT);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  if(millis() > 5000){
+    digitalWrite(13,High);
+  }
 }
