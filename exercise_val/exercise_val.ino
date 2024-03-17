@@ -7,6 +7,11 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   if(millis() > 5000){
-    digitalWrite(13,High);
+    digitalWrite(13,HIGH);
+    delay(1000);
+    digitalWrite(13,LOW);
+    delay(1000);
+  }else{
+    digitalWrite(13,HIGH);
   }
 }
