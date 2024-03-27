@@ -42,15 +42,14 @@ void loop() {
     if (gram0 == 47.96 && gram1 == 47.96) {
       Serial.println("転んでいるにょーん");
       tone(11,440);
+      delay(1000);
+      noTone(11);
     } else if (gram0 >= 200 && gram1 >= 150) {
       Serial.println("立っているかも");
-      }
     } else if (gram0 >= 50 && gram1 >= 50) {
       Serial.println("座っているぞ");
-      }
-      else{
-        Serial.println("あれ、大丈夫そ？");
-      }
+    } else {
+      Serial.println("あれ、大丈夫そ？");
     }
 
     // 質量&温度観測log 
