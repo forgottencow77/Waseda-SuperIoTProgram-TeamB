@@ -44,11 +44,11 @@ void loop() {
     } else if (gram0 >= 200 && gram1 >= 150) {
       Serial.println("立っている");
       tone(11,440);
-      delay(1500)
+      delay(1500);
     } else if (gram0 >= 50 && gram1 >= 50) {
       Serial.println("座っている");
       tone(11,440);
-      delay(1500)
+      delay(1500);
     }
 
     // 質量&温度観測log 
