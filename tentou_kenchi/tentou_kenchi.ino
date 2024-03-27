@@ -2,6 +2,7 @@ void setup() {
   pinMode(A0, INPUT);
   pinMode(A1, INPUT);
   pinMode(A2, INPUT);
+  pinMode(11,OUTPUT);
 
   Serial.begin(9600);
 }
@@ -41,6 +42,7 @@ void loop() {
     // 状態の判断
     if (gram0 == INFINITY && gram1 == INFINITY) {
       Serial.println("転んでいる");
+      digitalWrite(11,HIGH);
     } else if (gram0 >= 200 && gram1 >= 150) {
       Serial.println("立っている");
     } else if (gram0 >= 50 && gram1 >= 50) {
