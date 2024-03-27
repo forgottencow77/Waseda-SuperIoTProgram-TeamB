@@ -38,15 +38,17 @@ void loop() {
     gram1 = A / fsrR_kohm1 + B; // 質量を計算gram
 
     // 状態の判断
-    if (gram0 == INFINITY && gram1 == INFINITY) {
+    if (gram0 == 47.96 && gram1 == 47.96) {
       Serial.println("転んでいる");
-      tone(11,523);
+      tone(11,440);
     } else if (gram0 >= 200 && gram1 >= 150) {
       Serial.println("立っている");
-      tone(11,262);
+      tone(11,440);
+      delay(1500)
     } else if (gram0 >= 50 && gram1 >= 50) {
       Serial.println("座っている");
-      tone(11,262);
+      tone(11,440);
+      delay(1500)
     }
 
     // 質量&温度観測log 
