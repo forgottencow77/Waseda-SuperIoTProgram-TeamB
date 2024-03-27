@@ -2,8 +2,6 @@ void setup() {
   pinMode(A0, INPUT);
   pinMode(A1, INPUT);
   pinMode(A2, INPUT);
-  pinMode(11,OUTPUT);
-
   Serial.begin(9600);
 }
 
@@ -42,11 +40,13 @@ void loop() {
     // 状態の判断
     if (gram0 == INFINITY && gram1 == INFINITY) {
       Serial.println("転んでいる");
-      digitalWrite(11,HIGH);
+      tone(11,523);
     } else if (gram0 >= 200 && gram1 >= 150) {
       Serial.println("立っている");
+      tone(11,262);
     } else if (gram0 >= 50 && gram1 >= 50) {
       Serial.println("座っている");
+      tone(11,262);
     }
 
     // 質量&温度観測log 
