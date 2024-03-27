@@ -2,6 +2,7 @@ void setup() {
   pinMode(A0, INPUT);
   pinMode(A1, INPUT);
   pinMode(A2, INPUT);
+  pinMode(11, OUTPUT); // ピン11を出力モードに設定
   Serial.begin(9600);
 }
 
@@ -39,16 +40,26 @@ void loop() {
 
     // 状態の判断
     if (gram0 == 47.96 && gram1 == 47.96) {
-      Serial.println("転んでいる");
+      Serial.println("転んでいるにょーん");
       tone(11,440);
+      delay(1000);
+      noTone(11);
     } else if (gram0 >= 200 && gram1 >= 150) {
-      Serial.println("立っている");
-      tone(11,440);
-      delay(1500);
+      Serial.println("立っているかも");
+      for(int i = 0; i < 3; i++) {
+        tone(11,440);
+        delay(500);
+        noTone(11);
+        delay(500);
+      }
     } else if (gram0 >= 50 && gram1 >= 50) {
-      Serial.println("座っている");
-      tone(11,440);
-      delay(1500);
+      Serial.println("座っているぞ");
+      for(int i = 0; i < 3; i++) {
+        tone(11,440);
+        delay(500);
+        noTone(11);
+        delay(500);
+      }
     }
 
     // 質量&温度観測log 
@@ -56,9 +67,6 @@ void loop() {
     Serial.print(aInV0); // 力センサにかかる電圧の表示
     Serial.print("V"); // 単位の表示
     Serial.print("\t"); // タブ区切り
-    //Serial.print(fsrR_kohm0); // FSR抵抗値の表示
-    //Serial.print(" kohm"); // 単位の表示
-    //Serial.print("\t"); // タブ区切り
     Serial.print(gram0); // 質量の表示
     Serial.println(" g"); // 単位の表示と改行
 
@@ -66,9 +74,6 @@ void loop() {
     Serial.print(aInV1); // 力センサにかかる電圧の表示
     Serial.print("V"); // 単位の表示
     Serial.print("\t"); // タブ区切り
-    //Serial.print(fsrR_kohm1); // FSR抵抗値の表示
-    //Serial.print(" kohm"); // 単位の表示
-    //Serial.print("\t"); // タブ区切り
     Serial.print(gram1); // 質量の表示
     Serial.println(" g"); // 単位の表示と改行
 
