@@ -25,7 +25,8 @@ float gram0, gram1; // 推定質量 [gram] for A0 and A1
 void loop() {
   //温度の計算
   tempIn = analogRead(2);
-  float tempC = tempIn * (5.0 / 1023.0) * 100.0;
+  float tempC = tempIn * (5.0 / 1023.0);
+  float temp = 100 * tempC - 60;
 
   // 質量の計算 for A0
   aIn0 = analogRead(0); // アナログ入力(A/D変換値)
@@ -63,7 +64,7 @@ void loop() {
 
   //温度print
   Serial.println(tempIn);
-  Serial.println(tempC); //温度
+  Serial.println(temp); //温度
 
   if(ここに続き
 
