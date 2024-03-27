@@ -42,23 +42,14 @@ void loop() {
     if (gram0 == 47.96 && gram1 == 47.96) {
       Serial.println("転んでいるにょーん");
       tone(11,440);
-      delay(1000);
-      noTone(11);
     } else if (gram0 >= 200 && gram1 >= 150) {
       Serial.println("立っているかも");
-      for(int i = 0; i < 3; i++) {
-        tone(11,440);
-        delay(500);
-        noTone(11);
-        delay(500);
       }
     } else if (gram0 >= 50 && gram1 >= 50) {
       Serial.println("座っているぞ");
-      for(int i = 0; i < 3; i++) {
-        tone(11,440);
-        delay(500);
-        noTone(11);
-        delay(500);
+      }
+      else{
+        Serial.println("あれ、大丈夫そ？");
       }
     }
 
