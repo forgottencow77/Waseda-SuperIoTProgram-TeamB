@@ -44,29 +44,31 @@ void loop() {
     // 状態の判断
     if (gram0 == 47.96 && gram1 == 47.96) {
       Serial.println("転んでいるにょーん");
-      tone(11,440);
-    } else {
+      while (true) {
+        tone(11, 440);
+        delay(500);
+        noTone(11);
+        delay(500);
+      } 
+    } else if (gram0 >= 200 && gram1 >= 150) {
+      Serial.println("立っているかも");
+      tone(11, 330); // ミの音
+      delay(200);
       noTone(11);
-      if (gram0 >= 200 && gram1 >= 150) {
-        if (prevState != 1) {
-          tone(7, 330);
-          delay(1000);
-          noTone(7);
-        }
-        Serial.println("立っているかも");
-        prevState = 1;
-      } else if (gram0 >= 50 && gram1 >= 50) {
-        if (prevState != 2) {
-          tone(7, 349);
-          delay(1000);
-          noTone(7);
-        }
-        Serial.println("座っているぞ");
-        prevState = 2;
-      } else {
-        Serial.println("あれ、大丈夫そ？");
-        prevState = 0;
+    } else if (gram0 >= 50 && gram1 >= 50) {
+      if (prevState != 2) {
+        tone(11, 349);
+        delay(1000);
+        noTone(11);
       }
+    } else if (gram0 >= 50 && gram1 >= 50) {
+      Serial.println("座っているぞ");
+      tone(11, 349); // ファの音
+      delay(200);
+      noTone(11);
+    } else {
+      Serial.println("あれ、大丈夫そ？");
+      prevState = 0;
     }
 
     // 質量&温度観測log 
@@ -88,5 +90,5 @@ void loop() {
   }
 
   // インターバル
-  delay (1000);
+  delay (3000);
 }
