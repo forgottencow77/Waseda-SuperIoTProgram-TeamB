@@ -4,6 +4,7 @@ void setup() {
   pinMode(A2, INPUT);
   pinMode(11, OUTPUT); // ピン11を出力モードに設定
   Serial.begin(9600);
+ bool isExecuted = false; // フラグの初期化
 }
 
 //圧力計測変数
@@ -18,9 +19,6 @@ float gram0, gram1; // 推定質量 [gram] for A0 and A1
 //温度計測変数
 int tempIn;
 float thresholdTemp = 25.0;
-
-//状態変数
-int prevState = 0;
 
 void loop() {
   //温度の計算
@@ -44,6 +42,7 @@ void loop() {
     // 状態の判断
     if (gram0 == 47.96 && gram1 == 47.96) {
       Serial.println("転んでいるにょーん");
+      isExecuted = false
       while (true) {
         tone(11, 440);
         delay(500);
@@ -52,23 +51,20 @@ void loop() {
       } 
     } else if (gram0 >= 200 && gram1 >= 150) {
       Serial.println("立っているかも");
-      tone(11, 330); // ミの音
-      delay(200);
-      noTone(11);
-    } else if (gram0 >= 50 && gram1 >= 50) {
-      if (prevState != 2) {
-        tone(11, 349);
-        delay(1000);
+      if(!isExecuted){
+        tone(11,  349);
+        delay(200);
         noTone(11);
       }
     } else if (gram0 >= 50 && gram1 >= 50) {
       Serial.println("座っているぞ");
-      tone(11, 349); // ファの音
-      delay(200);
-      noTone(11);
+      if(!isExecuted){
+        tone(11, 349); // ファの音
+        delay(200);
+        noTone(11);
+      }
     } else {
-      Serial.println("あれ、大丈夫そ？");
-      prevState = 0;
+      Serial.println("あれ、大丈夫そ？どういう状態なん?");
     }
 
     // 質量&温度観測log 
