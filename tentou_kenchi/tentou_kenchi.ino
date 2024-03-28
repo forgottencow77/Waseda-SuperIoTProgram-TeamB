@@ -19,6 +19,9 @@ float gram0, gram1; // 推定質量 [gram] for A0 and A1
 int tempIn;
 float thresholdTemp = 25.0;
 
+//状態変数
+int prevState = 0;
+
 void loop() {
   //温度の計算
   tempIn = analogRead(2);
@@ -42,14 +45,28 @@ void loop() {
     if (gram0 == 47.96 && gram1 == 47.96) {
       Serial.println("転んでいるにょーん");
       tone(11,440);
-      delay(1000);
-      noTone(11);
-    } else if (gram0 >= 200 && gram1 >= 150) {
-      Serial.println("立っているかも");
-    } else if (gram0 >= 50 && gram1 >= 50) {
-      Serial.println("座っているぞ");
     } else {
-      Serial.println("あれ、大丈夫そ？");
+      noTone(11);
+      if (gram0 >= 200 && gram1 >= 150) {
+        if (prevState != 1) {
+          tone(7, 330);
+          delay(1000);
+          noTone(7);
+        }
+        Serial.println("立っているかも");
+        prevState = 1;
+      } else if (gram0 >= 50 && gram1 >= 50) {
+        if (prevState != 2) {
+          tone(7, 349);
+          delay(1000);
+          noTone(7);
+        }
+        Serial.println("座っているぞ");
+        prevState = 2;
+      } else {
+        Serial.println("あれ、大丈夫そ？");
+        prevState = 0;
+      }
     }
 
     // 質量&温度観測log 

@@ -2,7 +2,7 @@ void setup() {
   pinMode(A0, INPUT);
   pinMode(A1, INPUT);
   pinMode(A2, INPUT);
-
+  pinMode(11, OUTPUT); // ピン11を出力モードに設定
   Serial.begin(9600);
 }
 
@@ -18,6 +18,9 @@ float gram0, gram1; // 推定質量 [gram] for A0 and A1
 //温度計測変数
 int tempIn;
 float thresholdTemp = 25.0;
+
+//状態変数
+int prevState = 0;
 
 void loop() {
   //温度の計算
@@ -39,12 +42,31 @@ void loop() {
     gram1 = A / fsrR_kohm1 + B; // 質量を計算gram
 
     // 状態の判断
-    if (gram0 == INFINITY && gram1 == INFINITY) {
-      Serial.println("転んでいる");
-    } else if (gram0 >= 200 && gram1 >= 150) {
-      Serial.println("立っている");
-    } else if (gram0 >= 50 && gram1 >= 50) {
-      Serial.println("座っている");
+    if (gram0 == 47.96 && gram1 == 47.96) {
+      Serial.println("転んでいるにょーん");
+      tone(11,440);
+    } else {
+      noTone(11);
+      if (gram0 >= 200 && gram1 >= 150) {
+        if (prevState != 1) {
+          tone(7, 330);
+          delay(1000);
+          noTone(7);
+        }
+        Serial.println("立っているかも");
+        prevState = 1;
+      } else if (gram0 >= 50 && gram1 >= 50) {
+        if (prevState != 2) {
+          tone(7, 349);
+          delay(1000);
+          noTone(7);
+        }
+        Serial.println("座っているぞ");
+        prevState = 2;
+      } else {
+        Serial.println("あれ、大丈夫そ？");
+        prevState = 0;
+      }
     }
 
     // 質量&温度観測log 
@@ -52,9 +74,6 @@ void loop() {
     Serial.print(aInV0); // 力センサにかかる電圧の表示
     Serial.print("V"); // 単位の表示
     Serial.print("\t"); // タブ区切り
-    //Serial.print(fsrR_kohm0); // FSR抵抗値の表示
-    //Serial.print(" kohm"); // 単位の表示
-    //Serial.print("\t"); // タブ区切り
     Serial.print(gram0); // 質量の表示
     Serial.println(" g"); // 単位の表示と改行
 
@@ -62,9 +81,6 @@ void loop() {
     Serial.print(aInV1); // 力センサにかかる電圧の表示
     Serial.print("V"); // 単位の表示
     Serial.print("\t"); // タブ区切り
-    //Serial.print(fsrR_kohm1); // FSR抵抗値の表示
-    //Serial.print(" kohm"); // 単位の表示
-    //Serial.print("\t"); // タブ区切り
     Serial.print(gram1); // 質量の表示
     Serial.println(" g"); // 単位の表示と改行
 
