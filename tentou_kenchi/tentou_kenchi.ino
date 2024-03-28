@@ -4,7 +4,6 @@ void setup() {
   pinMode(A2, INPUT);
   pinMode(11, OUTPUT); // ピン11を出力モードに設定
   Serial.begin(9600);
- bool isExecuted = false; // フラグの初期化
 }
 
 //圧力計測変数
@@ -19,6 +18,8 @@ float gram0, gram1; // 推定質量 [gram] for A0 and A1
 //温度計測変数
 int tempIn;
 float thresholdTemp = 25.0;
+
+bool isExecuted = false; // フラグの初期化
 
 void loop() {
   //温度の計算
