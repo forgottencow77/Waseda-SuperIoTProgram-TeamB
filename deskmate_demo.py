@@ -22,17 +22,13 @@ import time
 #            1 LangchainのAgentをここで準備する               #
 ############################################################
 
-os.environ["MY_FILE_PATH"] = "/Users/forgottencow/Desktop/Codes_Python/テンカウ技研/Tenkau-Institute-Technology/L.U.N.A - A.I/ChatGPT/myfile.txt"
-#FASTCHATサーバーの互換キー🔑
-os.environ["OPENAI_API_KEY"] = "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"
-#os.environ["OPENAI_API_BASE"] = "http://192.168.1.19:8000/v1"
-#os.environ["OPENAI_API_BASE"] = "http://119.105.109.59:8000/v1"
+//APIキー等は削除しました。任意で追加してね❤️
 
 llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo")
 llm_math_chain = LLMMathChain.from_llm(llm=llm, verbose=True)
 
 search = SerpAPIWrapper(
-    serpapi_api_key='85a67cb8f59594f69249cd8881727a04548bce71164f6d5b00141f1ef49c2b3f')
+    serpapi_api_key='enter api')
 
 ############################################################
 #             2 Toolsをここで定義する                         #
